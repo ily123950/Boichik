@@ -1,6 +1,9 @@
 -- Create a reference to Players service
 local Players = game:GetService("Players")
 
+-- Create a reference to StarterGui
+local StarterGui = game:GetService("StarterGui")
+
 -- Function to handle chat messages
 function HandleChatMessage(message)
     if string.sub(message, 1, 4) == "!lua" then
@@ -12,9 +15,17 @@ function HandleChatMessage(message)
         end)
         
         if success then
-            print("Command executed successfully:", result)
+            StarterGui:SetCore("SendNotification", {
+                Title = "Notification",
+                Text = "Script was executed successfully: " .. tostring(result),
+                Duration = 3,
+            })
         else
-            warn("Command execution error:", result)
+            StarterGui:SetCore("SendNotification", {
+                Title = "Notification",
+                Text = "Script Error, check console: " .. tostring(result),
+                Duration = 3,
+            })
         end
     end
 end
